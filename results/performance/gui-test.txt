@@ -1,0 +1,1 @@
+ecosystem.exe --preset .\benchmarkPreset.json --gui --clean --test-performance --tlog 1000000 --agents 500 --output output/GUI-500

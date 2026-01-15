@@ -5,7 +5,6 @@ PROGRAM = "ecosystem.exe"
 
 # Constants or common arguments
 BASE_ARGS = [
-    "--clean",
     "--test-performance",
     "--tlog", "1000000",
     "--preset", "benchmarkPreset.json"

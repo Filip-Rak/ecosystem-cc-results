@@ -1,0 +1,23 @@
+PS C:\MyFiles\Repos\thesis\results\determinism> python .\run.py
+Running: ecosystem.exe --output output/run-1 --tlog 1000 --preset preset.json
+[==================================================] iteration 100000 of 100000
+Finished
+Running: ecosystem.exe --output output/run-2 --tlog 1000 --preset preset.json
+[==================================================] iteration 100000 of 100000
+Finished
+Running: ecosystem.exe --output output/run-3 --tlog 1000 --preset preset.json
+[==================================================] iteration 100000 of 100000
+Finished
+Running: ecosystem.exe --output output/run-4 --tlog 1000 --preset preset.json
+[==================================================] iteration 100000 of 100000
+Finished
+Running: ecosystem.exe --output output/run-5 --tlog 1000 --preset preset.json
+[==================================================] iteration 100000 of 100000
+Finished
+output/run-1 0ddbc6e1859c18934bb3eb19b1e24eb2f06e80a75d5d5ccbf68c27c7ef990b5a
+output/run-2 0ddbc6e1859c18934bb3eb19b1e24eb2f06e80a75d5d5ccbf68c27c7ef990b5a
+output/run-3 0ddbc6e1859c18934bb3eb19b1e24eb2f06e80a75d5d5ccbf68c27c7ef990b5a
+output/run-4 0ddbc6e1859c18934bb3eb19b1e24eb2f06e80a75d5d5ccbf68c27c7ef990b5a
+output/run-5 0ddbc6e1859c18934bb3eb19b1e24eb2f06e80a75d5d5ccbf68c27c7ef990b5a
+All hashes identical.
+PS C:\MyFiles\Repos\thesis\results\determinism>
