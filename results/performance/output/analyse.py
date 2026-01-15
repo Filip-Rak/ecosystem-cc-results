@@ -64,6 +64,10 @@ def process_benchmark_dir(dirname: str):
     median_tick = df["tickTime"].median()
     avg_live_agents = df["liveAgents"].mean()
 
+    # NEW: frame time stats
+    avg_frame = df["frameTime"].mean()
+    median_frame = df["frameTime"].median()
+
     # As per your definition: average updates/sec = liveAgents / average tickTime
     avg_updates_per_sec = avg_live_agents / avg_tick if avg_tick > 0 else float("nan")
 
@@ -75,8 +79,11 @@ def process_benchmark_dir(dirname: str):
         "liveAgents_avg": avg_live_agents,
         "avg_tickTime": avg_tick,
         "median_tickTime": median_tick,
+        "avg_frameTime": avg_frame,        # NEW
+        "median_frameTime": median_frame,  # NEW
         "avg_updates_per_sec": avg_updates_per_sec,
     }
+
 
 
 def main():
@@ -122,6 +129,8 @@ def main():
                 "liveAgents_for_plot",
                 "avg_tickTime",
                 "median_tickTime",
+                "avg_frameTime",       # NEW
+                "median_frameTime",    # NEW
                 "avg_updates_per_sec",
             ]
         ].to_string(index=False)
