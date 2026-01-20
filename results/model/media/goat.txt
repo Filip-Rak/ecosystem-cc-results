@@ -1,0 +1,1 @@
+Projekt środowiska obliczeniowego wykorzystującego architekturę ECS do symulacji ekosystemu wieloagentowego oraz jego analiza
