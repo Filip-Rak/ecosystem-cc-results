@@ -23,7 +23,7 @@ for i in range(1, RUNS + 1):
     outdir = f"output/run-{i}"
     args = [PROGRAM, "--output", outdir] + BASE_ARGS
     print("Running:", " ".join(args))
-    result = subprocess.run(args)  # live output
+    result = subprocess.run(args)
     if result.returncode != 0:
         sys.exit(result.returncode)
     outputs.append(outdir)

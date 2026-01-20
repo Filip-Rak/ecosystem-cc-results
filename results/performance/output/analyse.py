@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 
 
 CSV_NAME = "performanceData.csv"
-WARMUP_ITERS = 1000  # <-- first 1000 iterations are warmup
-BENCHMARK_PREFIX = "benchmark"  # any dir starting with this will be used
+WARMUP_ITERS = 1000
+BENCHMARK_PREFIX = "benchmark"
 
 
 def extract_live_agents_from_dirname(dirname: str) -> int:
@@ -49,28 +49,18 @@ def process_benchmark_dir(dirname: str):
 
     print(f"{dirname}: read {len(df)} rows")
 
-    # Determine max iteration dynamically (should be 101001 if you log them all)
     max_iteration = df["iteration"].max()
-
-    # Keep iterations (WARMUP_ITERS, max_iteration) exclusive of both ends:
-    #   (WARMUP_ITERS + 1) .. (max_iteration - 1)
     df = df[(df["iteration"] > WARMUP_ITERS) & (df["iteration"] < max_iteration)].copy()
-
-    # Shift iteration numbers down by WARMUP_ITERS so analysis starts at 1
     df["iteration"] = df["iteration"] - WARMUP_ITERS
 
-    # Compute stats
     avg_tick = df["tickTime"].mean()
     median_tick = df["tickTime"].median()
     avg_live_agents = df["liveAgents"].mean()
 
-    # NEW: frame time stats
     avg_frame = df["frameTime"].mean()
     median_frame = df["frameTime"].median()
 
-    # As per your definition: average updates/sec = liveAgents / average tickTime
     avg_updates_per_sec = avg_live_agents / avg_tick if avg_tick > 0 else float("nan")
-
     nominal_live_agents = extract_live_agents_from_dirname(dirname)
 
     return {
@@ -79,8 +69,8 @@ def process_benchmark_dir(dirname: str):
         "liveAgents_avg": avg_live_agents,
         "avg_tickTime": avg_tick,
         "median_tickTime": median_tick,
-        "avg_frameTime": avg_frame,        # NEW
-        "median_frameTime": median_frame,  # NEW
+        "avg_frameTime": avg_frame,
+        "median_frameTime": median_frame,
         "avg_updates_per_sec": avg_updates_per_sec,
     }
 
@@ -94,7 +84,6 @@ def main():
         print("No benchmark* directories found.")
         return
 
-    # Optional: sort directories by the numeric part so processing order is nice
     benchmark_dirs = sorted(
         benchmark_dirs,
         key=lambda d: (extract_live_agents_from_dirname(d) or float("inf")),
@@ -112,15 +101,11 @@ def main():
         return
 
     res_df = pd.DataFrame(results)
-
-    # Use nominal liveAgents (from dir name) if available
     res_df["liveAgents_for_plot"] = res_df["liveAgents_nominal"].fillna(
         res_df["liveAgents_avg"]
     )
 
-    # Sort by liveAgents so the plot looks nice
     res_df = res_df.sort_values("liveAgents_for_plot")
-
     print("\n=== Benchmark Summary ===")
     print(
         res_df[
@@ -129,17 +114,15 @@ def main():
                 "liveAgents_for_plot",
                 "avg_tickTime",
                 "median_tickTime",
-                "avg_frameTime",       # NEW
-                "median_frameTime",    # NEW
+                "avg_frameTime", 
+                "median_frameTime",
                 "avg_updates_per_sec",
             ]
         ].to_string(index=False)
     )
 
-    # Save summary
     res_df.to_csv("benchmark_summary.csv", index=False)
 
-    # Plot: average agent updates per second vs live agents
     plt.figure(figsize=(8, 5))
     plt.plot(
         res_df["liveAgents_for_plot"],
