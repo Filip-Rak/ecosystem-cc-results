@@ -19,7 +19,7 @@ SHADES = {
     "population.png": 0,
 }
 
-GRID_DIR = Path( "grid" )
+GRID_DIR = Path( "gridTmp" )
 
 def make_images( size: int ):
     GRID_DIR.mkdir( exist_ok=True )
@@ -35,10 +35,10 @@ def main():
         cmd = [
             PROGRAM,
             "--test-performance",
-            "--tlog", "1000000",
+            "--tlog", "1000",
             "--preset", "benchmarkPreset.json",
             "--agents", str( agents ),
-            "--output", f"output{size}x{size}-{agents}/",
+            "--output", f"output/out-{size}x{size}-{agents}/",
         ]
 
         print( "Running:", " ".join(cmd) )
